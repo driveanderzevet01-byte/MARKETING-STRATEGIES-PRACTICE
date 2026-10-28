@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Strategies Practice · Randomized</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background: #f2f5f9;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px -12px rgba(0, 20, 30, 0.25);
+            padding: 2rem 2rem 2.5rem;
+            transition: all 0.2s;
+        }
+
+        /* --- start screen --- */
+        .start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.8rem;
+            padding: 1.5rem 0 0.5rem;
+        }
+
+        .start-screen h1 {
+            font-size: 2.1rem;
+            font-weight: 600;
+            color: #0b2b3b;
+            letter-spacing: -0.02em;
+            border-bottom: 3px solid #3a7ca5;
+            padding-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #1d3b4f;
+            font-size: 1rem;
+        }
+
+        .form-group input {
+            padding: 0.9rem 1.2rem;
+            border: 1.5px solid #cbdae6;
+            border-radius: 60px;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.15s, box-shadow 0.15s;
+            background: #fbfdff;
+        }
+
+        .form-group input:focus {
+            border-color: #3a7ca5;
+            box-shadow: 0 0 0 4px rgba(58, 124, 165, 0.15);
+        }
+
+        .btn {
+            background: #1f5e7a;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.9rem 2.5rem;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 6px 14px rgba(27, 74, 94, 0.3);
+            letter-spacing: 0.3px;
+            margin-top: 0.8rem;
+        }
+
+        .btn:hover {
+            background: #0f435b;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-secondary {
+            background: #e7eef4;
+            color: #1d3b4f;
+            box-shadow: none;
+            border: 1px solid #b8cfdf;
+            font-weight: 500;
+        }
+
+        .btn-secondary:hover {
+            background: #d2e0ea;
+        }
+
+        /* --- test screen --- */
+        .test-screen {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .user-badge {
+            background: #e7f0f7;
+            border-radius: 40px;
+            padding: 0.6rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            color: #1d3b4f;
+            align-self: flex-start;
+            border: 1px solid #c2d8e8;
+            flex-wrap: wrap;
+        }
+
+        .user-badge span {
+            font-weight: 600;
+            color: #0a3142;
+        }
+
+        .progress-indicator {
+            background: #f0f7fc;
+            border-radius: 40px;
+            padding: 0.5rem 1.4rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #1a4a61;
+            border: 1px solid #cfe0ed;
+            display: inline-block;
+        }
+
+        .question-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+            margin: 0.5rem 0 0.8rem;
+        }
+
+        .question-item {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.2rem 1.6rem;
+            border: 1px solid #d9e5f0;
+            transition: box-shadow 0.2s;
+        }
+
+        .question-item:hover {
+            box-shadow: 0 6px 16px rgba(0, 33, 55, 0.06);
+        }
+
+        .question-item.unanswered-warning {
+            border-color: #e6a8a8;
+            background: #fff9f9;
+            box-shadow: 0 0 0 3px rgba(200, 70, 70, 0.08);
+        }
+
+        .question-text {
+            font-weight: 500;
+            font-size: 1.05rem;
+            color: #0a293b;
+            margin-bottom: 0.8rem;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .question-number {
+            font-weight: 700;
+            color: #3a7ca5;
+            min-width: 1.8rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            padding-left: 2rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            font-size: 0.98rem;
+            color: #1f4055;
+            cursor: pointer;
+            padding: 0.25rem 0;
+        }
+
+        .option input[type="radio"] {
+            margin-top: 0.2rem;
+            accent-color: #2c6f8f;
+            width: 1.1rem;
+            height: 1.1rem;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .submit-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1.2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .submit-warning {
+            color: #b33f3f;
+            font-weight: 500;
+            font-size: 0.95rem;
+            background: #fef3f3;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid #e6bebe;
+        }
+
+        /* --- result screen --- */
+        .result-screen {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .result-header {
+            background: linear-gradient(145deg, #e2eef9, #d1e2f0);
+            padding: 1.6rem 2rem;
+            border-radius: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .result-header .info h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0a2f40;
+            margin-bottom: 0.2rem;
+        }
+
+        .result-header .info p {
+            font-size: 1rem;
+            color: #1d4b61;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.8rem;
+        }
+
+        .result-header .info span.value {
+            font-weight: 700;
+            color: #103d52;
+        }
+
+        .score-box {
+            background: #1e4e63;
+            color: white;
+            padding: 0.9rem 2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.9rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: baseline;
+            gap: 0.3rem;
+        }
+
+        .score-box small {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-left: 0.3rem;
+        }
+
+        .review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .review-item {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 1.2rem 1.6rem;
+            border-left: 6px solid #b0c9db;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.6rem 1.2rem;
+        }
+
+        .review-item.correct {
+            border-left-color: #2a9d8f;
+            background: #f5fdfb;
+        }
+
+        .review-item.incorrect {
+            border-left-color: #d45a5a;
+            background: #fef7f7;
+        }
+
+        .review-q {
+            font-weight: 600;
+            color: #123b4e;
+            display: flex;
+            gap: 10px;
+            flex: 1 1 200px;
+        }
+
+        .review-detail {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem 2rem;
+            font-size: 0.95rem;
+            color: #1e3f52;
+        }
+
+        .review-detail .item {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .review-detail .label {
+            font-weight: 500;
+            color: #4f6f82;
+        }
+
+        .review-detail .user-ans {
+            font-weight: 600;
+        }
+
+        .correct-ans {
+            color: #1d7a6b;
+            font-weight: 600;
+        }
+
+        .wrong-ans {
+            color: #b33f3f;
+            font-weight: 600;
+        }
+
+        .badge-ok {
+            background: #dff3ef;
+            color: #1d6b5e;
+            padding: 0.1rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        .back-link {
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 700px) {
+            .app-container { padding: 1.5rem; }
+            .result-header { flex-direction: column; align-items: flex-start; }
+            .score-box { align-self: flex-start; }
+            .question-text { font-size: 1rem; }
+            .options { padding-left: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container" id="appContainer">
+        <!-- START SCREEN -->
+        <div id="startScreen" class="start-screen">
+            <h1>📊 Marketing Strategies Practice</h1>
+            <div class="form-group">
+                <label for="fullName">Full name</label>
+                <input type="text" id="fullName" placeholder="e.g., Alex Rivera" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="studyProgram">Study program</label>
+                <input type="text" id="studyProgram" placeholder="e.g., Business Administration" autocomplete="off">
+            </div>
+            <button class="btn" id="startBtn">Start test →</button>
+        </div>
+
+        <!-- TEST SCREEN -->
+        <div id="testScreen" class="test-screen hidden">
+            <div class="user-badge" id="userBadge">
+                👤 <span id="badgeName"></span> · <span id="badgeProgram"></span>
+                <span class="progress-indicator" id="progressIndicator">0 / 50 answered</span>
+            </div>
+
+            <div class="question-list" id="questionList"></div>
+
+            <div class="submit-container">
+                <span id="submitWarning" class="submit-warning hidden">⚠️ Please answer all questions before submitting.</span>
+                <button class="btn" id="submitBtn">Submit test ✓</button>
+            </div>
+        </div>
+
+        <!-- RESULT SCREEN -->
+        <div id="resultScreen" class="result-screen hidden">
+            <div class="result-header" id="resultHeader"></div>
+            <div class="review-list" id="reviewList"></div>
+            <div class="back-link">
+                <button class="btn btn-secondary" id="restartBtn">↺ Take again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---------- 50 Marketing Strategies Questions (original index preserved) ----------
+            const rawQuestions = [
+                { text: "What is the main purpose of copywriting?", options: ["To explain a topic", "To persuade people to act", "To report website traffic"], answer: 1 }, // B
+                { text: "A company writes a blog explaining how to choose running shoes. Which strategy is this?", options: ["Content writing", "Copywriting", "Product placement"], answer: 0 }, // A
+                { text: "Which element is especially important in an audio advertisement?", options: ["Page layout", "Image framing", "A clear call to action"], answer: 2 }, // C
+                { text: "What does website traffic refer to?", options: ["The number of website visitors", "The number of products sold", "The number of advertisements made"], answer: 0 }, // A
+                { text: "A creator films their morning routine while naturally using a skincare product. Which strategy is this most likely to be?", options: ["SEO", "UGC", "Copywriting"], answer: 1 }, // B
+                { text: "What is the main goal of SEO?", options: ["To increase paid advertisements", "To create radio advertisements", "To improve search rankings"], answer: 2 }, // C
+                { text: "Which feature best describes content writing?", options: ["Informative and explanatory", "Urgent and sales-focused", "Visually dramatic"], answer: 0 }, // A
+                { text: "A movie shows a recognizable soft drink on a table without mentioning its brand. What strategy is being used?", options: ["Copywriting", "Product placement", "SEO"], answer: 1 }, // B
+                { text: "Which of the following is a marketing metric?", options: ["Website design", "Product packaging", "Number of shares"], answer: 2 }, // C
+                { text: "What makes UGC appealing to audiences?", options: ["Authenticity", "Formal language", "Technical complexity"], answer: 0 }, // A
+                { text: "Which element is particularly important in a video advertisement?", options: ["Keyword density alone", "Storytelling and editing", "A written report"], answer: 1 }, // B
+                { text: "What is the main purpose of a visual advertisement?", options: ["To track website visits", "To explain search algorithms", "To attract attention visually"], answer: 2 }, // C
+                { text: "Which phrase is the best example of a copywriting CTA?", options: ["\"Discover the history of coffee.\"", "\"Buy now and save 20%!\"", "\"Coffee is grown in many countries.\""], answer: 1 }, // B
+                { text: "A business records daily likes, comments, and purchases in Excel. Why?", options: ["To measure marketing performance", "To create product placement", "To improve video lighting"], answer: 0 }, // A
+                { text: "Which strategy is considered soft-selling because it builds long-term trust through useful information?", options: ["Direct-response copywriting", "Flash-sale advertising", "Content writing"], answer: 2 }, // C
+                { text: "What is one important ethical concern with paid product placement?", options: ["The product looks too small", "The partnership is not disclosed", "The scene uses natural lighting"], answer: 1 }, // B
+                { text: "Which SEO practice helps a website reach people searching in a specific region?", options: ["Local SEO", "Sound design", "Product placement"], answer: 0 }, // A
+                { text: "What should a strong audio advertisement have near the beginning?", options: ["A traffic report", "A long product manual", "An attention-grabbing hook"], answer: 2 }, // C
+                { text: "A business uses a pie chart to show the percentage of visitors from different sources. What is this an example of?", options: ["Copywriting", "Data visualization", "Product placement"], answer: 1 }, // B
+                { text: "What is the main difference between content writing and copywriting?", options: ["Content writing informs; copywriting persuades", "Content writing uses images; copywriting uses sound", "Content writing tracks traffic; copywriting tracks rankings"], answer: 0 }, // A
+                { text: "Which is an example of organic traffic?", options: ["Visitors who arrive through unpaid search results", "Visitors who click a paid search advertisement", "Visitors who receive a printed brochure"], answer: 0 }, // A
+                { text: "Which element helps a visual advertisement communicate its message effectively?", options: ["Daily visitor records", "Keyword research alone", "Composition and framing"], answer: 2 }, // C
+                { text: "A brand publishes a blog with credible sources and clear headings. Which strategy does this demonstrate?", options: ["Product placement", "Content writing", "Audio advertising"], answer: 1 }, // B
+                { text: "Which marketing strategy typically uses emotional language and catchy headlines to encourage immediate action?", options: ["Copywriting", "Content writing", "Traffic analysis"], answer: 0 }, // A
+                { text: "What is a key feature of effective video advertising?", options: ["No editing or pacing", "A mix of audio and visuals", "Text without any context"], answer: 1 }, // B
+                { text: "A company tracks purchases after launching an advertisement. What is it measuring?", options: ["Composition", "Product visibility", "A conversion metric"], answer: 2 }, // C
+                { text: "What is the main role of a keyword in SEO?", options: ["To match content with search queries", "To improve microphone quality", "To increase video frame rates"], answer: 0 }, // A
+                { text: "A customer posts an honest review of a new restaurant on social media. What type of content is this?", options: ["A direct sales slogan", "User-generated content", "A search ranking report"], answer: 1 }, // B
+                { text: "Which strategy relies most heavily on voice, pacing, and sound effects?", options: ["Visual advertising", "SEO", "Audio advertising"], answer: 2 }, // C
+                { text: "A company wants to build trust by publishing helpful articles instead of pushing immediate purchases. Which approach is most suitable?", options: ["Content writing", "Direct selling", "Undisclosed product placement"], answer: 0 }, // A
+                { text: "In the marketing funnel, which stage generally comes after awareness?", options: ["Consideration", "Product manufacturing", "Data recording"], answer: 0 }, // A
+                { text: "A creator's video features a branded watch naturally during a daily-life story, without directly discussing it. Which strategy best fits?", options: ["SEO", "Product placement", "Copywriting"], answer: 1 }, // B
+                { text: "What is the purpose of a line graph in a marketing report?", options: ["To create a catchy headline", "To hide changes in performance", "To show trends over time"], answer: 2 }, // C
+                { text: "Which statement best describes visual advertising?", options: ["It uses visual elements to deliver a message", "It depends only on written explanations", "It measures only website visitors"], answer: 0 }, // A
+                { text: "Which language style is usually preferred for SEO readability?", options: ["Complex sentences and rare words", "Clear, natural sentences", "Repeated keywords in every sentence"], answer: 1 }, // B
+                { text: "A podcast advertisement ends by telling listeners to visit a website. What is this final instruction?", options: ["A keyword", "A metric", "A call to action"], answer: 2 }, // C
+                { text: "Which is the clearest example of direct selling?", options: ["\"Learn how coffee beans are grown.\"", "\"Order today for 15% off!\"", "\"Explore the origins of coffee.\""], answer: 1 }, // B
+                { text: "What is the primary purpose of tracking marketing metrics?", options: ["To evaluate results and improve strategies", "To replace all creative decisions", "To guarantee every campaign succeeds"], answer: 0 }, // A
+                { text: "Which feature distinguishes UGC from typical brand-produced promotional content?", options: ["It always includes professional lighting", "It never mentions a product", "It often shows relatable personal experiences"], answer: 2 }, // C
+                { text: "A business wants more visitors from searches such as \"affordable dentist in Bekasi.\" What should it focus on?", options: ["Audio pacing", "Local SEO and keyword choice", "Product placement"], answer: 1 }, // B
+                { text: "Which factor helps a video advertisement maintain audience interest?", options: ["Relevant storytelling", "Unrelated scenes", "Unnecessarily slow editing"], answer: 0 }, // A
+                { text: "A website receives 2,000 visits in one week. What does this figure represent?", options: ["A copywriting CTA", "A visual composition", "A traffic figure"], answer: 2 }, // C
+                { text: "Why should paid product placements be disclosed?", options: ["To make products more colorful", "To avoid misleading audiences", "To improve audio pacing"], answer: 1 }, // B
+                { text: "Which strategy usually focuses on immediate sales through persuasive messages?", options: ["Copywriting", "Content writing", "Local SEO"], answer: 0 }, // A
+                { text: "A company compares likes, shares, and purchases from two campaigns. What is it doing?", options: ["Designing a visual advertisement", "Integrating a product into a film", "Analyzing marketing metrics"], answer: 2 }, // C
+                { text: "Which combination best describes an effective visual ad?", options: ["Clear composition and strong visual appeal", "Long explanations and raw data only", "Search keywords and website traffic alone"], answer: 0 }, // A
+                { text: "What is the main purpose of multilingual SEO?", options: ["To improve sound quality", "To reach audiences using different languages", "To create more product placements"], answer: 1 }, // B
+                { text: "A skincare brand posts an advertisement saying, \"Get glowing skin—shop now!\" Which strategy is most evident?", options: ["Traffic analysis", "Content writing", "Copywriting"], answer: 2 }, // C
+                { text: "Which statement about video ads is correct?", options: ["They can combine sound, visuals, and storytelling", "They rely only on spoken words", "They cannot include product integration"], answer: 0 }, // A
+                { text: "What should marketers do with daily performance data before presenting results?", options: ["Ignore changes between days", "Organize and visualize the data", "Replace the data with guesses"], answer: 1 } // B
+            ];
+
+            // State
+            let userAnswers = new Array(rawQuestions.length).fill(null);
+            let fullName = '';
+            let studyProgram = '';
+            let startTime = null;
+            let testCompleted = false;
+
+            // DOM elements
+            const startScreen = document.getElementById('startScreen');
+            const testScreen = document.getElementById('testScreen');
+            const resultScreen = document.getElementById('resultScreen');
+            const fullNameInput = document.getElementById('fullName');
+            const studyProgramInput = document.getElementById('studyProgram');
+            const startBtn = document.getElementById('startBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const restartBtn = document.getElementById('restartBtn');
+            const questionList = document.getElementById('questionList');
+            const badgeName = document.getElementById('badgeName');
+            const badgeProgram = document.getElementById('badgeProgram');
+            const progressIndicator = document.getElementById('progressIndicator');
+            const submitWarning = document.getElementById('submitWarning');
+            const resultHeader = document.getElementById('resultHeader');
+            const reviewList = document.getElementById('reviewList');
+
+            // ---------- shuffle function (Fisher-Yates) ----------
+            function shuffleArray(arr) {
+                const a = [...arr];
+                for (let i = a.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [a[i], a[j]] = [a[j], a[i]];
+                }
+                return a;
+            }
+
+            // ---------- render questions in randomized order ----------
+            function renderQuestions() {
+                if (!questionList) return;
+
+                const indices = Array.from({ length: rawQuestions.length }, (_, i) => i);
+                const shuffledIndices = shuffleArray(indices);
+
+                let html = '';
+                shuffledIndices.forEach((rawIdx, displayIdx) => {
+                    const q = rawQuestions[rawIdx];
+                    const displayNum = displayIdx + 1;
+                    html += `<div class="question-item" id="q-${rawIdx}" data-rawidx="${rawIdx}">`;
+                    html += `<div class="question-text"><span class="question-number">${displayNum}.</span> ${q.text}</div>`;
+                    html += `<div class="options">`;
+                    q.options.forEach((opt, optIdx) => {
+                        const letter = String.fromCharCode(97 + optIdx);
+                        const checked = (userAnswers[rawIdx] === optIdx) ? 'checked' : '';
+                        html += `<label class="option">
+                                    <input type="radio" name="q${rawIdx}" value="${optIdx}" data-rawidx="${rawIdx}" ${checked}>
+                                    <span>${letter}. ${opt}</span>
+                                </label>`;
+                    });
+                    html += `</div></div>`;
+                });
+                questionList.innerHTML = html;
+
+                // Attach change listeners
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', function(e) {
+                        const rawIdx = parseInt(this.dataset.rawidx);
+                        const val = parseInt(this.value);
+                        if (!isNaN(rawIdx) && !isNaN(val)) {
+                            userAnswers[rawIdx] = val;
+                            updateProgress();
+                            const qItem = document.getElementById(`q-${rawIdx}`);
+                            if (qItem) qItem.classList.remove('unanswered-warning');
+                            if (userAnswers.every(a => a !== null)) {
+                                submitWarning.classList.add('hidden');
+                            }
+                        }
+                    });
+                });
+
+                updateProgress();
+            }
+
+            // ---------- update progress indicator ----------
+            function updateProgress() {
+                const answered = userAnswers.filter(a => a !== null).length;
+                progressIndicator.textContent = `${answered} / ${rawQuestions.length} answered`;
+            }
+
+            // ---------- helper: format time ----------
+            function formatDuration(ms) {
+                const totalSec = Math.floor(ms / 1000);
+                const min = Math.floor(totalSec / 60);
+                const sec = totalSec % 60;
+                return `${min} min ${sec} sec`;
+            }
+
+            // ---------- show test screen ----------
+            function showTestScreen() {
+                startScreen.classList.add('hidden');
+                resultScreen.classList.add('hidden');
+                testScreen.classList.remove('hidden');
+
+                badgeName.textContent = fullName || 'Student';
+                badgeProgram.textContent = studyProgram || '—';
+
+                renderQuestions();
+            }
+
+            // ---------- start test ----------
+            function startTest() {
+                const name = fullNameInput.value.trim();
+                const program = studyProgramInput.value.trim();
+                if (!name) {
+                    alert('Please enter your full name.');
+                    return;
+                }
+                if (!program) {
+                    alert('Please enter your study program.');
+                    return;
+                }
+                fullName = name;
+                studyProgram = program;
+                userAnswers = new Array(rawQuestions.length).fill(null);
+                startTime = Date.now();
+                testCompleted = false;
+                submitWarning.classList.add('hidden');
+                showTestScreen();
+            }
+
+            // ---------- compute score ----------
+            function computeScore() {
+                let correct = 0;
+                rawQuestions.forEach((q, idx) => {
+                    if (userAnswers[idx] === q.answer) correct++;
+                });
+                return { correct, total: rawQuestions.length };
+            }
+
+            // ---------- build result screen ----------
+            function showResult() {
+                const endTime = Date.now();
+                const durationMs = endTime - startTime;
+                const timeStr = formatDuration(durationMs);
+                const { correct, total } = computeScore();
+
+                resultHeader.innerHTML = `
+                    <div class="info">
+                        <h2>${fullName}</h2>
+                        <p>
+                            <span>📚 <span class="value">${studyProgram}</span></span>
+                            <span>⏱️ Time taken: <span class="value">${timeStr}</span></span>
+                        </p>
+                    </div>
+                    <div class="score-box">${correct}<small>/${total}</small></div>
+                `;
+
+                // Preserve displayed order from DOM
+                const items = document.querySelectorAll('.question-item');
+                let orderedRawIndices = [];
+                if (items.length) {
+                    items.forEach(item => {
+                        const rawIdx = parseInt(item.dataset.rawidx);
+                        if (!isNaN(rawIdx)) orderedRawIndices.push(rawIdx);
+                    });
+                } else {
+                    orderedRawIndices = Array.from({ length: rawQuestions.length }, (_, i) => i);
+                }
+
+                let reviewHtml = '';
+                orderedRawIndices.forEach((rawIdx, displayIdx) => {
+                    const q = rawQuestions[rawIdx];
+                    const userAns = userAnswers[rawIdx];
+                    const isCorrect = (userAns === q.answer);
+                    const userLetter = (userAns !== null && userAns !== undefined) ? String.fromCharCode(97 + userAns) : '—';
+                    const correctLetter = String.fromCharCode(97 + q.answer);
+                    const userText = (userAns !== null && userAns !== undefined) ? q.options[userAns] : 'Not answered';
+                    const correctText = q.options[q.answer];
+
+                    reviewHtml += `<div class="review-item ${isCorrect ? 'correct' : 'incorrect'}">
+                        <div class="review-q"><span class="question-number">${displayIdx+1}.</span> ${q.text}</div>
+                        <div class="review-detail">
+                            <div class="item"><span class="label">Your answer:</span> 
+                                <span class="${isCorrect ? 'correct-ans' : 'wrong-ans'}">${userLetter}. ${userText}</span>
+                            </div>
+                            <div class="item"><span class="label">Key:</span> 
+                                <span class="correct-ans">${correctLetter}. ${correctText}</span>
+                            </div>
+                            ${isCorrect ? '<span class="badge-ok">✓ correct</span>' : ''}
+                        </div>
+                    </div>`;
+                });
+                reviewList.innerHTML = reviewHtml;
+
+                startScreen.classList.add('hidden');
+                testScreen.classList.add('hidden');
+                resultScreen.classList.remove('hidden');
+            }
+
+            // ---------- submit ----------
+            function onSubmit() {
+                const unansweredRawIndices = [];
+                userAnswers.forEach((ans, idx) => {
+                    if (ans === null || ans === undefined) unansweredRawIndices.push(idx);
+                });
+
+                if (unansweredRawIndices.length > 0) {
+                    submitWarning.classList.remove('hidden');
+                    submitWarning.textContent = `⚠️ Please answer all questions. ${unansweredRawIndices.length} question(s) unanswered.`;
+
+                    unansweredRawIndices.forEach(rawIdx => {
+                        const qItem = document.getElementById(`q-${rawIdx}`);
+                        if (qItem) qItem.classList.add('unanswered-warning');
+                    });
+
+                    const firstUnanswered = document.getElementById(`q-${unansweredRawIndices[0]}`);
+                    if (firstUnanswered) firstUnanswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    return;
+                }
+
+                if (testCompleted) return;
+                testCompleted = true;
+                showResult();
+            }
+
+            // ---------- restart ----------
+            function restart() {
+                userAnswers = new Array(rawQuestions.length).fill(null);
+                fullName = '';
+                studyProgram = '';
+                startTime = null;
+                testCompleted = false;
+
+                fullNameInput.value = '';
+                studyProgramInput.value = '';
+
+                startScreen.classList.remove('hidden');
+                testScreen.classList.add('hidden');
+                resultScreen.classList.add('hidden');
+                submitWarning.classList.add('hidden');
+            }
+
+            // ---------- event listeners ----------
+            startBtn.addEventListener('click', startTest);
+            submitBtn.addEventListener('click', onSubmit);
+            restartBtn.addEventListener('click', restart);
+
+            fullNameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    studyProgramInput.focus();
+                }
+            });
+            studyProgramInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    startTest();
+                }
+            });
+
+        })();
+    </script>
+</body>
+</html>
